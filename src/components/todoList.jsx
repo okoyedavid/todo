@@ -5,7 +5,14 @@ import {
   renderLabel,
 } from "../features/utils/input";
 
-const TodoList = ({ todos, handleChange, handleDelete, handleEdit }) => {
+const TodoList = ({
+  todos,
+  handleChange,
+  handleDelete,
+  handleEdit,
+  editInput,
+  setEditInput,
+}) => {
   return (
     <div>
       <ul className="list-group list-group-flush">
@@ -23,9 +30,13 @@ const TodoList = ({ todos, handleChange, handleDelete, handleEdit }) => {
               {renderLabel(todo.title, todo._id, "form-check-label m-3")}
             </div>
             <div className="button-container">
-              {renderButton("Edit", "btn-secondary m-2", () =>
-                handleEdit(todo.title)
-              )}
+              {editInput.toRender
+                ? renderButton("Edit", "btn-secondary m-2", () =>
+                    handleEdit(todo.title)
+                  )
+                : renderButton("Cancel", "btn-secondary m-2", () =>
+                    setEditInput({ ...editInput, toRender: true })
+                  )}
 
               {renderButton("Delete", "btn-danger m-2", () =>
                 handleDelete(todo._id)

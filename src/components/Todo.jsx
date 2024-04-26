@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { v4 as uuid4 } from "uuid";
-import {
-  renderInput,
-  renderButton,
-  renderLabel,
-} from "../features/utils/input";
 import TodoList from "./todoList";
 import AddTodo from "./addTodo";
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [edit, setEdit] = useState({ value: "", toRender: true });
 
   const [completedTodo, setCompletedTodo] = useState([]);
 
@@ -31,7 +27,8 @@ const Todo = () => {
   };
 
   const handleEdit = (movie) => {
-    setInputValue(movie);
+    const editInput = { value: movie, toRender: false };
+    setEdit(editInput);
   };
 
   const handleDelete = (movie) => {
@@ -45,12 +42,15 @@ const Todo = () => {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           inputValue={inputValue}
+          editInput={edit}
         />
         <TodoList
           todos={todos}
           handleChange={handleChange}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          editInput={edit}
+          setEditInput={setEdit}
         />
       </main>
     </React.Fragment>
