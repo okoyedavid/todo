@@ -1,4 +1,13 @@
-.check {
+.form-check-input {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-check-label {
+  max-width: 400px;
 }
