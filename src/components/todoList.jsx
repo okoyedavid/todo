@@ -7,10 +7,9 @@ import {
 
 const TodoList = ({
   todos,
-  handleChange,
   handleDelete,
   handleEdit,
-  buttonChange,
+  handleCompleted,
   handleCancel,
 }) => {
   return (
@@ -22,7 +21,7 @@ const TodoList = ({
               {renderInput(
                 "checkbox",
                 todo,
-                handleChange,
+                () => handleCompleted(todo._id, todo.title),
                 todo._id,
                 "form-check-input me-2 m-3"
               )}
@@ -30,6 +29,7 @@ const TodoList = ({
               {renderLabel(todo.title, todo._id, "form-check-label m-3")}
             </div>
             <div className="button-container">
+              <sub className="subscript text-primary">created: {todo.time}</sub>
               {!todo.toEdit
                 ? renderButton("Edit", "btn-secondary m-2", () =>
                     handleEdit(todo.title, todo._id)

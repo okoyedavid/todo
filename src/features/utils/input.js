@@ -35,7 +35,7 @@ const renderInput = (
 const renderLabel = (label, id, classNew) => {
   return (
     <label htmlFor={id} className={classNew}>
-      {label}
+      <span className="label-text">{label}</span>
     </label>
   );
 };

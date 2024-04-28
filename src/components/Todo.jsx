@@ -3,8 +3,12 @@ import { v4 as uuid4 } from "uuid";
 import TodoList from "./todoList";
 import AddTodo from "./addTodo";
 
-const Todo = () => {
-  const [todos, setTodos] = useState([]);
+const Todo = ({ completedTodos, setCompletedTodos }) => {
+  const [todos, setTodos] = useState(() => {
+    const storedTodos = localStorage.getItem("todos");
+    return storedTodos ? JSON.parse(storedTodos) : [];
+  });
+
   const [render, setrender] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [edit, setEdit] = useState("");
@@ -12,7 +16,19 @@ const Todo = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const handleCompleted = (id, movie) => {
+    const timestamp = new Date().toLocaleString();
+
+    const completed = { title: movie, _id: id, time: timestamp };
+    setCompletedTodos([...completedTodos, completed]);
+
+    setTimeout(() => {
+      handleDelete(id);
+    }, 2000);
+  };
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -20,9 +36,15 @@ const Todo = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (inputValue === "") return;
-    const newTodo = { title: inputValue, _id: uuid4(), toEdit: false };
+    const timestamp = new Date().toLocaleString();
+
+    const newTodo = {
+      title: inputValue,
+      _id: uuid4(),
+      toEdit: false,
+      time: timestamp,
+    };
     setTodos([...todos, newTodo]);
     setInputValue("");
   };
@@ -91,6 +113,7 @@ const Todo = () => {
           handleDelete={handleDelete}
           handleEdit={handleEdit}
           handleCancel={handleCancel}
+          handleCompleted={handleCompleted}
         />
       </main>
     </React.Fragment>
