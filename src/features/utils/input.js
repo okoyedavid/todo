@@ -4,6 +4,7 @@ const renderInput = (
   change,
   id,
   inputClass,
+  ref,
   placeholder = "what would you you like to do today"
 ) => {
   if (name === "text")
@@ -14,6 +15,7 @@ const renderInput = (
         className={inputClass}
         onChange={change}
         id={id}
+        ref={ref}
         placeholder={placeholder}
       />
     );

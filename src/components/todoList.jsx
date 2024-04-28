@@ -10,8 +10,8 @@ const TodoList = ({
   handleChange,
   handleDelete,
   handleEdit,
-  editInput,
-  setEditInput,
+  buttonChange,
+  handleCancel,
 }) => {
   return (
     <div>
@@ -30,12 +30,12 @@ const TodoList = ({
               {renderLabel(todo.title, todo._id, "form-check-label m-3")}
             </div>
             <div className="button-container">
-              {editInput.toRender
+              {!todo.toEdit
                 ? renderButton("Edit", "btn-secondary m-2", () =>
-                    handleEdit(todo.title)
+                    handleEdit(todo.title, todo._id)
                   )
                 : renderButton("Cancel", "btn-secondary m-2", () =>
-                    setEditInput({ ...editInput, toRender: true })
+                    handleCancel(todo._id)
                   )}
 
               {renderButton("Delete", "btn-danger m-2", () =>

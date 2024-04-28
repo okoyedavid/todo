@@ -5,8 +5,15 @@ import {
   renderLabel,
 } from "../features/utils/input";
 
-const AddTodo = ({ handleSubmit, handleChange, inputValue, editInput }) => {
-  if (editInput.toRender)
+const AddTodo = ({
+  handleSubmit,
+  handleChange,
+  inputValue,
+  inputRef,
+  handleEditSubmit,
+  render,
+}) => {
+  if (!render)
     return (
       <form onSubmit={handleSubmit}>
         {renderLabel("Todo", "Todo", "form-label")}
@@ -17,7 +24,8 @@ const AddTodo = ({ handleSubmit, handleChange, inputValue, editInput }) => {
               inputValue,
               handleChange,
               "Todo",
-              "form-control"
+              "form-control",
+              inputRef
             )}
           </div>
           <div className="col-4">{renderButton("Add Todo", "btn-primary")}</div>
@@ -26,16 +34,17 @@ const AddTodo = ({ handleSubmit, handleChange, inputValue, editInput }) => {
     );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleEditSubmit}>
       {renderLabel("Edit", "Todo", "form-label")}
       <div className="mb-3 row">
         <div className="col-8">
           {renderInput(
             "text",
-            editInput.value,
+            inputValue,
             handleChange,
             "Todo",
             "form-control",
+            inputRef,
             "Update Todo"
           )}
         </div>
