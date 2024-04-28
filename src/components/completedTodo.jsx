@@ -31,12 +31,16 @@ const CompletedTodo = ({ completedTodos, setCompletedTodos }) => {
         )}
         {completedTodos.map((todo) => (
           <li key={todo._id} className="list-group-item m-3">
-            <div className="input-container">
-              {renderLabel(todo.title, todo._id, "form-check-label m-3")}
+            <div className="completed-container">
+              {renderLabel(
+                todo.title,
+                todo._id,
+                "form-check-label completed m-3"
+              )}
             </div>
             <div className="button-container">
               <sub className="subscript text-primary">
-                Marked completed: {todo.time}
+                completed: {todo.time}
               </sub>
 
               {renderButton("Delete", "btn-danger m-2", () =>
